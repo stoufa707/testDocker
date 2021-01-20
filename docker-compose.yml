@@ -1,0 +1,20 @@
+version: "3.4"
+services:
+  predictor:
+    build:
+      context: ./predictor 
+    environment: 
+      - PYTHONUNBUFFERED=1
+    network_mode: "host" 
+    volumes:
+      - ./predictor:/application
+  reader:
+    build:
+      context: ./reader
+    environment:
+      - PYTHONUNBUFFERED=1
+    network_mode: "host"
+    volumes:
+      - ./reader:/application
+    depends_on: 
+       - predictor
